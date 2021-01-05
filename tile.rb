@@ -1,6 +1,6 @@
 class Tile
 
-  attr_acessor :revealed, :bombed, :flagged
+  attr_accessor :revealed, :bombed, :flagged
 
   def initialize(revealed = false, bombed = false, flagged = false)
     @revealed = revealed
@@ -21,8 +21,8 @@ class Tile
     end
   end
 
-  def finge_change
-    
+  def neighbour_bomb_count(val)
+    @fringe = val
   end
 
 end
