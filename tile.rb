@@ -1,6 +1,6 @@
 class Tile
 
-  
+  attr_reader :bombed, :fringe
 
   def initialize(revealed = false, bombed = false, flagged = false, value = "*")
     @revealed = revealed

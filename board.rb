@@ -1,4 +1,5 @@
 require_relative "tile"
+require "byebug"
 
 class Board
 
@@ -40,7 +41,12 @@ class Board
     neighbours = []
     (-1..1).each do |i|
       (-1..1).each do |j|
-        neighbours << @board[x+i][y+j] if (x + i) >= 0 && (y + j) >= 0
+        # debugger
+        if (x + i) >= 0 && (y + j) >= 0 
+          if (x + i) <= 8 && (y + j) <= 8
+            neighbours << @board[x+i][y+j].bombed 
+          end
+        end
       end
     end
     
@@ -48,7 +54,15 @@ class Board
     neighbours
   end
 
-  
+  def fringe_setter
+    (0..8).each do |i|
+      (0..8).each do |j|
+        val = neighbour_finder([i,j]).count(true)
+        @board[i][j].neighbour_bomb_count(val)
+      end
+    end
+        
+  end 
 
   def render
     by_row = []
