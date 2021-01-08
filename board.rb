@@ -2,11 +2,13 @@ require_relative "tile"
 
 class Board
 
-  def self.empty_grid
-    Array.new(9){Array.new(9)}
+  attr_reader :board
+
+  def initialize
+    @board = Array.new(9){Array.new(9)}
   end
 
-  def self.populate
+  def populate
     list = []
     10.times do
       list << Tile.new(false, true, false)
@@ -15,14 +17,15 @@ class Board
       list << Tile.new
     end
     list.shuffle!
-    list.each_slice(9){|sl| tiles << sl}
-    self.new(tiles)
+    (0..8).each do |x|
+      (0..8).each do |y|
+        @board[x][y] = list.shift
+      end
+    end
   end 
 
 
-  def initialize(grid = self.empty_grid)
-    @board = grid
-  end
+  
 
   def [](pos)
     x, y = pos
@@ -31,8 +34,33 @@ class Board
 
   def []=(pos,val)
     x, y = pos
-    tile = board[x][y]
-    tile.fringe = val
+    board[x][y] = val   
+  end
+
+  def neighbour_finder(arr)
+    x, y = arr
+    min = 0
+    max = 9
+    neighbours = []
+    # corners
+    # if x == min
+    #   if y == max || y == min
+    #     neighbours = 
+
+    #edges
+
+    #regular
+    # x-1, x, x +1
+    # y-1, y, y+1
+    (-1..1).each do |i|
+      (-1..1).each do |j|
+        neighbours << @board[x+i][y+j] if (x + i) != x && (y + j) != y
+      end
+    end
+        
+
+
+    neighbours
   end
 
 end
