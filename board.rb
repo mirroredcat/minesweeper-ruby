@@ -28,39 +28,38 @@ class Board
   
 
   def [](pos)
-    x, y = pos
-    board[x][y]
+    @board[pos]
   end
 
   def []=(pos,val)
-    x, y = pos
-    board[x][y] = val   
+    @board[pos] = val   
   end
 
   def neighbour_finder(arr)
     x, y = arr
-    min = 0
-    max = 9
     neighbours = []
-    # corners
-    # if x == min
-    #   if y == max || y == min
-    #     neighbours = 
-
-    #edges
-
-    #regular
-    # x-1, x, x +1
-    # y-1, y, y+1
     (-1..1).each do |i|
       (-1..1).each do |j|
-        neighbours << @board[x+i][y+j] if (x + i) != x && (y + j) != y
+        neighbours << @board[x+i][y+j] if (x + i) >= 0 && (y + j) >= 0
       end
     end
-        
-
-
+    
+    neighbours.delete(@board[x][y])
     neighbours
+  end
+
+  
+
+  def render
+    by_row = []
+    puts "  #{(0..8).to_a.join(" ")}"
+    board.each_with_index do |row, i|
+      board.each_with_index do |el, j|
+        by_row << board[i][j].value
+      end
+      puts "#{i} #{by_row.join(" ")}"
+      by_row = []
+    end
   end
 
 end

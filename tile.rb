@@ -1,12 +1,28 @@
 class Tile
 
-  attr_accessor :revealed, :bombed, :flagged
+  
 
-  def initialize(revealed = false, bombed = false, flagged = false)
+  def initialize(revealed = false, bombed = false, flagged = false, value = "*")
     @revealed = revealed
     @bombed = bombed
     @flagged = flagged
-    @fringe = nil
+    @fringe = 0
+    @value = value
+
+  end
+
+  def value
+    if @revealed == true
+      if @bombed == true
+        @value = "B"
+      elsif @fringe != 0
+        @value = @fringe.to_s
+      else
+        @value = " "
+      end
+    else
+      @value
+    end
   end
 
   def reveal
