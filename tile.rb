@@ -1,6 +1,6 @@
 class Tile
 
-  attr_reader :bombed, :fringe
+  attr_reader :bombed, :fringe, :flagged, :revealed
 
   def initialize(revealed = false, bombed = false, flagged = false, value = "*")
     @revealed = revealed
@@ -12,14 +12,16 @@ class Tile
   end
 
   def value
-    if @revealed == true
-      if @bombed == true
+    if @revealed 
+      if @bombed 
         @value = "B"
       elsif @fringe != 0
         @value = @fringe.to_s
       else
-        @value = " "
+        @value = "_"
       end
+    elsif @flagged
+      @value = "F"
     else
       @value
     end
