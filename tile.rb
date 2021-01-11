@@ -8,7 +8,6 @@ class Tile
     @flagged = flagged
     @fringe = 0
     @value = value
-
   end
 
   def value
