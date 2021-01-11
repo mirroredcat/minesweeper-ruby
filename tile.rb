@@ -1,7 +1,7 @@
+require "colorize"
+
 class Tile
 
-<<<<<<< HEAD
-=======
   attr_reader :bombed, :fringe, :flagged, :revealed
 
   def initialize(revealed = false, bombed = false, flagged = false, value = "*")
@@ -26,6 +26,8 @@ class Tile
     end
   end
 
+  def colorize_fringe
+
   def reveal
     @revealed = true
   end
@@ -44,5 +46,4 @@ class Tile
     @fringe = val
   end
 
->>>>>>> base-game
 end
