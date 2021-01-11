@@ -12,7 +12,7 @@ class Board
   def populate
     list = []
     10.times do
-      list << Tile.new(false, true, false)
+      list << Tile.new(false, true)
     end
     (9*9 - 10).times do 
       list << Tile.new
@@ -71,11 +71,6 @@ class Board
     @board[x][y].flag
   end
 
-  def is_flagged?(coord)
-    x,y = coord
-    @board[x][y].flagged
-  end 
-
   def is_bomb?(coord)
     x,y = coord
     @board[x][y].bombed
@@ -86,6 +81,12 @@ class Board
     return true if @board[x][y].fringe > 0
   end 
 
+  def is_revealed?(coord)
+    x,y = coord
+    return true if @board[x][y].revealed
+    false
+  end
+
   def find_coord(el)
     @board.each_with_index do |row, i|
       j = row.index(el)
@@ -94,7 +95,6 @@ class Board
   end
 
   def reveal_board(coord)
-    # debugger
     x,y = coord
     if has_fringe?(coord)
       @board[x][y].reveal
@@ -107,6 +107,13 @@ class Board
     neighbour_finder(coord).each {|el| reveal_board(find_coord(el))}
   end 
 
+  def reveal_all_bombs
+    @board.each do |row|
+      row.each do |el|
+        el.reveal if el.bombed
+      end
+    end
+  end 
 
   def render
     by_row = []
@@ -118,6 +125,13 @@ class Board
       puts "#{i} #{by_row.join(" ")}"
       by_row = []
     end
+  end
+
+  def win
+    @board.each do |row|
+      return false if row.any?{|el| el.revealed == false && el.bombed == false}
+    end
+    return true
   end
 
 end

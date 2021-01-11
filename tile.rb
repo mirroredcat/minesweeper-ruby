@@ -20,8 +20,6 @@ class Tile
       else
         @value = "_"
       end
-    elsif @flagged
-      @value = "F"
     else
       @value
     end
@@ -34,8 +32,10 @@ class Tile
   def flag
     if flagged
       flagged = false
+      @value = "*"
     else
       flagged = true
+      @value = "F"
     end
   end
 
