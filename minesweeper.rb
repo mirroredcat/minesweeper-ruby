@@ -53,13 +53,11 @@ class Minesweeper
   def flag_or_reveal?
     answ = ""
     until answ == "r" || answ == "f"
-      puts "Would you like to reveal or flag?(r/f)"
+      puts "Would you like to reveal or flag?(r/f). Bombs remaining: #{10 - @board.flag_counter}"
       answ = gets.chomp.downcase
     end
     answ
   end
-
-
 
   def play_round
     @board.render
@@ -90,7 +88,7 @@ class Minesweeper
     t = Time.now
     nr = @start - t
 
-    puts "Time: #{nr.abs.floor/60}:#{nr.abs.floor % 60}"
+    puts "Time: #{nr.abs.floor/60}minutes and #{nr.abs.floor % 60} seconds"
   end
 
 end
