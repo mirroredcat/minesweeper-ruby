@@ -10,6 +10,7 @@ class Minesweeper
     board.fringe_setter
     @board = board
     @game_over = false
+    @start = Time.now
   end
 
   def parse_pos(str)
@@ -83,10 +84,13 @@ class Minesweeper
     end
   end
 
-
   def run
-    play_round until won || @game_over
+    play_round until won || @game_over 
     @board.render
+    t = Time.now
+    nr = @start - t
+
+    puts "Time: #{nr.abs.floor/60}:#{nr.abs.floor % 60}"
   end
 
 end
