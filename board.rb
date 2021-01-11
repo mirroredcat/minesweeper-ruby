@@ -107,6 +107,17 @@ class Board
     neighbour_finder(coord).each {|el| reveal_board(find_coord(el))}
   end 
 
+  
+  def flag_counter
+    count = 0
+    @board.each do |row|
+      row.each do |el|
+        count +=1 if el.value == "F"
+      end
+    end
+    count
+  end
+
   def reveal_all_bombs
     @board.each do |row|
       row.each do |el|
