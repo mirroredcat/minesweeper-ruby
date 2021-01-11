@@ -15,7 +15,7 @@ class Tile
   def value
     if @revealed 
       if @bombed 
-        @value = "B"
+        @value = "B".colorize(:background => :red)
       elsif @fringe != 0
         @value = @fringe.to_s.colorize(colorize_fringe)
       else
