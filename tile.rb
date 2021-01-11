@@ -17,7 +17,7 @@ class Tile
       if @bombed 
         @value = "B"
       elsif @fringe != 0
-        @value = @fringe.to_s
+        @value = @fringe.to_s.colorize(colorize_fringe)
       else
         @value = "_"
       end
@@ -27,6 +27,9 @@ class Tile
   end
 
   def colorize_fringe
+    colors = [:red, :green, :yellow, :blue, :magenta, :cyan]
+    colors[@fringe-1]
+  end
 
   def reveal
     @revealed = true
